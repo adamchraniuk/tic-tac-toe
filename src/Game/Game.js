@@ -4,16 +4,23 @@ import Board from "./Board";
 
 
 class Game extends Component {
+    constructor(props) {
+        super(props);
+
+    }
+
     render() {
         const {
             playerOne,
-            playerTwo
+            playerTwo,
+            history
         } = this.props;
 
         return (
                <Board
                playerOne={playerOne}
-               playerTwo={playerTwo}/>
+               playerTwo={playerTwo}
+               historyBack={history}/>
         )
     }
 

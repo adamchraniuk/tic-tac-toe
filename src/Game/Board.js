@@ -8,24 +8,47 @@ class Board extends Component {
         super(props);
         this.state = {
             squares: Array(9).fill(null),
-            counter: 0
-        }
+            xIsNext: true,
+        };
+
     }
 
     handleClick(i) {
 
         const squares = this.state.squares.slice();
-        this.state.counter % 2 === 0 ? squares[i] = 'X' : squares[i] = 'O';
+        if (squares[i] === null) {
+            squares[i] = this.state.xIsNext ? 'X' : 'O';
+        }
         this.setState({
             squares: squares,
-            counter: this.state.counter + 1
+            xIsNext: !this.state.xIsNext,
         });
-        console.log(squares)
+        console.log(squares[i],this.state.counter)
     }
 
     renderSquare(i) {
         return <Square value={this.state.squares[i]}
                        handleClick={() => this.handleClick(i)}/>;
+    }
+
+    calculateWinner(squares) {
+        const lines = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6],
+        ];
+        for (let i = 0; i < lines.length; i++) {
+            const [a, b, c] = lines[i];
+            if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+                return squares[a];
+            }
+        }
+        return null;
     }
 
     render() {
@@ -34,14 +57,23 @@ class Board extends Component {
             playerTwo
         } = this.props;
         const {
-            counter,
+            xIsNext,
             squares
         } = this.state;
 
-        const status = `Player: ${counter % 2 === 0 ? playerOne : playerTwo}`;
+        const winner = this.calculateWinner(squares);
+        let status;
+        if (winner) {
+            status = 'Winner: ' + winner;
+            alert(status);
+            this.props.historyBack.push('/');
+        } else {
+            status = 'Next player: ' + (xIsNext ? playerOne : playerTwo);
+        }
 
         return (
             <div className="board">
+
                 <h2 className="status">{status}</h2>
                 {squares.map((square, index) => {
                     return (
