@@ -4,10 +4,6 @@ import Board from "./Board";
 
 
 class Game extends Component {
-    constructor(props) {
-        super(props)
-    }
-
     render() {
         const {
             playerOne,
@@ -15,11 +11,9 @@ class Game extends Component {
         } = this.props;
 
         return (
-            <div>
                <Board
                playerOne={playerOne}
                playerTwo={playerTwo}/>
-            </div>
         )
     }
 

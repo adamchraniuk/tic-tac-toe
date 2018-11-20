@@ -2,9 +2,11 @@
     margin-top: 30px;
 }
 
-h1 {
+h1,h2 {
+    width: 100%;
     text-align: center;
     margin-top: 30px;
+    margin-bottom: 30px;
 }
 
 .board-row {
@@ -13,9 +15,16 @@ h1 {
 
 .square {
     width: 33.333%;
-    min-height: 150px;
+    min-height: 250px;
     border: 1px solid #333;
     float: left;
     font-size: 90px;
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.board {
+    display: flex;
+    flex-wrap: wrap;
 }

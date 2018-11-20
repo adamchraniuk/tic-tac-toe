@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import PropTypes from 'prop-types';
 import Square from './Square';
 
@@ -15,16 +15,12 @@ class Board extends Component {
     handleClick(i) {
 
         const squares = this.state.squares.slice();
-        if (this.state.counter % 2 === 0) {
-            squares[i] = 'X';
-        }
-        else {
-            squares[i] = 'O';
-        }
+        this.state.counter % 2 === 0 ? squares[i] = 'X' : squares[i] = 'O';
         this.setState({
             squares: squares,
             counter: this.state.counter + 1
         });
+        console.log(squares)
     }
 
     renderSquare(i) {
@@ -33,16 +29,25 @@ class Board extends Component {
     }
 
     render() {
-        const status = `Next player: ${this.state.squares}`;
+        const {
+            playerOne,
+            playerTwo
+        } = this.props;
+        const {
+            counter,
+            squares
+        } = this.state;
+
+        const status = `Player: ${counter % 2 === 0 ? playerOne : playerTwo}`;
 
         return (
-            <div>
+            <div className="board">
                 <h2 className="status">{status}</h2>
-                {this.state.squares.map((square, index) => {
+                {squares.map((square, index) => {
                     return (
-                        <div key={index}>
+                        <Fragment key={index}>
                             {this.renderSquare(index)}
-                        </div>
+                        </Fragment>
                     )
                 })}
             </div>
@@ -50,4 +55,8 @@ class Board extends Component {
     }
 }
 
+Board.propTypes = {
+    playerOne: PropTypes.string,
+    playerTwo: PropTypes.string
+};
 export default Board
