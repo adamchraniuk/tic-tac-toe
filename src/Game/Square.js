@@ -11,17 +11,18 @@ class Square extends Component {
     }
 
     render() {
+        const {
+            value,
+            handleClick
+        } = this.props;
         return (
             <div className="square"
-                 onClick={() => this.setState({value: 'X'})}>
-                {this.state.value}
+                 onClick={() => handleClick()}>
+                {value}
             </div>
         );
     }
 
 }
 
-Square.propTypes = {
-    value: PropTypes.number
-};
 export default Square

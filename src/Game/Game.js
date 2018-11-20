@@ -13,6 +13,7 @@ class Game extends Component {
             playerOne,
             playerTwo
         } = this.props;
+
         return (
             <div>
                <Board

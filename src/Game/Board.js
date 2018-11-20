@@ -7,36 +7,44 @@ class Board extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            player: 'Player'
+            squares: Array(9).fill(null),
+            counter: 0
         }
     }
 
+    handleClick(i) {
+
+        const squares = this.state.squares.slice();
+        if (this.state.counter % 2 === 0) {
+            squares[i] = 'X';
+        }
+        else {
+            squares[i] = 'O';
+        }
+        this.setState({
+            squares: squares,
+            counter: this.state.counter + 1
+        });
+    }
 
     renderSquare(i) {
-        return <Square value={i}/>;
+        return <Square value={this.state.squares[i]}
+                       handleClick={() => this.handleClick(i)}/>;
     }
 
     render() {
-        const status = `Next player: ${this.state.player}`;
+        const status = `Next player: ${this.state.squares}`;
 
         return (
             <div>
                 <h2 className="status">{status}</h2>
-                <div className="board-row">
-                    {this.renderSquare(0)}
-                    {this.renderSquare(1)}
-                    {this.renderSquare(2)}
-                </div>
-                <div className="board-row">
-                    {this.renderSquare(3)}
-                    {this.renderSquare(4)}
-                    {this.renderSquare(5)}
-                </div>
-                <div className="board-row">
-                    {this.renderSquare(6)}
-                    {this.renderSquare(7)}
-                    {this.renderSquare(8)}
-                </div>
+                {this.state.squares.map((square, index) => {
+                    return (
+                        <div key={index}>
+                            {this.renderSquare(index)}
+                        </div>
+                    )
+                })}
             </div>
         );
     }

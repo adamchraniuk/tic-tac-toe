@@ -1,13 +1,16 @@
-.start__action,.f-start__label{
+.start__action, .f-start__label {
     margin-top: 30px;
 }
+
 h1 {
     text-align: center;
     margin-top: 30px;
 }
+
 .board-row {
     width: 50%;
 }
+
 .square {
     width: 33.333%;
     min-height: 150px;
